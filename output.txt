@@ -1,1 +1,4 @@
-Yes
+Find 'hello': 1
+Find 'world': 1
+Find 'helloworld': 0
+Find 'hell': 0
