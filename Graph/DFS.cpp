@@ -2,10 +2,35 @@
 using namespace std;
 constexpr chrono::seconds TimeLimit = 3s;
 
-// TODO: Code Here
-int Main(){
+// Code Here:
 
-    
+void dfs(int u,vector<int>&vis,vector<vector<int>>&adj){
+    vis[u]=1;
+    cout<<u<<" ";
+    for(auto&child:adj[u]){
+        if(!vis[child]){
+            dfs(child,vis,adj);
+        }
+    }
+}
+
+
+int Main(){
+    int n,m;
+    cin>>n>>m;
+    vector<vector<int>> adj(n+1);
+    for(int i{};i<m;i++){
+        int u,v;
+        cin>>u>>v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+    vector<int> vis(n+1,0);
+    for(int i{1};i<=n;i++){
+        if(!vis[i]){
+            dfs(i,vis,adj);
+        }
+    }
 
     return 0;
 }

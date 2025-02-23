@@ -4,27 +4,21 @@ constexpr chrono::seconds TimeLimit = 3s;
 
 // Code Here:
 
-void bfs(int u,vector<int>&vis,vector<vector<int>>&adj){
-    queue<int> q;
-    q.push(u);
-    vis[u]=1;
-    while(!q.empty()){
-        int sz=q.size();
-        for(int z{};z<sz;z++){
-            int node=q.front();
-            cout<<node<<" ";
-            q.pop();
-            for(auto&child:adj[node]){
-                if(!vis[child]){
-                    vis[child]=1;
-                    q.push(child);
-                }
-            }
+bool dfs(int u,vector<int>&vis,vector<int>&pVis,stack<int>&st,vector<vector<int>>&adj){
+    vis[u]=true;
+    pVis[u]=true;
+    for(auto&child:adj[u]){
+        if(!vis[child]){
+            if(!dfs(child,vis,pVis,st,adj)) return false;
         }
-
+        else if(pVis[child]){
+            return false;
+        }
     }
+    pVis[u]=false;
+    st.push(u);
+    return true;
 }
-
 
 int Main(){
     int n,m;
@@ -34,14 +28,27 @@ int Main(){
         int u,v;
         cin>>u>>v;
         adj[u].push_back(v);
-        adj[v].push_back(u);
     }
-    vector<int> vis(n+1,0);
+    stack<int> st;
+    vector<int> vis(n+1,false),pVis(n+1,false);
     for(int i{1};i<=n;i++){
         if(!vis[i]){
-            bfs(i,vis,adj);
+            if(!dfs(i,vis,pVis,st,adj)){
+                cout<<-1<<endl;
+                return 0;
+            }
         }
     }
+    vector<int> topoSort;
+    while(!st.empty()){
+        topoSort.push_back(st.top());
+        st.pop();
+    }
+
+    for(auto&i:topoSort){
+        cout<<i<<" ";
+    }
+    cout<<endl;
 
     return 0;
 }

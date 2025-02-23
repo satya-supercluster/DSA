@@ -3,46 +3,45 @@ using namespace std;
 constexpr chrono::seconds TimeLimit = 3s;
 
 // Code Here:
-
-void bfs(int u,vector<int>&vis,vector<vector<int>>&adj){
-    queue<int> q;
-    q.push(u);
-    vis[u]=1;
-    while(!q.empty()){
-        int sz=q.size();
-        for(int z{};z<sz;z++){
-            int node=q.front();
-            cout<<node<<" ";
-            q.pop();
-            for(auto&child:adj[node]){
-                if(!vis[child]){
-                    vis[child]=1;
-                    q.push(child);
-                }
-            }
-        }
-
-    }
-}
-
-
 int Main(){
     int n,m;
     cin>>n>>m;
     vector<vector<int>> adj(n+1);
+    vector<int> indegree(n+1,0);
     for(int i{};i<m;i++){
         int u,v;
         cin>>u>>v;
         adj[u].push_back(v);
-        adj[v].push_back(u);
+        indegree[v]++;
     }
-    vector<int> vis(n+1,0);
+    queue<int> q;
     for(int i{1};i<=n;i++){
-        if(!vis[i]){
-            bfs(i,vis,adj);
+        if(indegree[i]==0){
+            q.push(i);
         }
     }
+    vector<int> topoSort;
 
+    while(!q.empty()){
+        int sz=q.size();
+        for(int i{};i<sz;i++){
+            int node=q.front();
+            q.pop();
+            topoSort.push_back(node);
+            for(auto&child:adj[node]){
+                indegree[child]--;
+                if(indegree[child]==0){
+                    q.push(child);
+                }
+            }
+        }
+    }
+    if(topoSort.size()==n){
+        for(auto&i:topoSort){
+            cout<<i<<" ";
+        }
+    }
+    else cout<<"-1"<<endl;
     return 0;
 }
 

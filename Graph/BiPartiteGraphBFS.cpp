@@ -4,27 +4,28 @@ constexpr chrono::seconds TimeLimit = 3s;
 
 // Code Here:
 
-void bfs(int u,vector<int>&vis,vector<vector<int>>&adj){
+bool bfs(int u, vector<int>&color,vector<vector<int>>&adj){
     queue<int> q;
     q.push(u);
-    vis[u]=1;
+    color[u]=0;
     while(!q.empty()){
         int sz=q.size();
-        for(int z{};z<sz;z++){
+        for(int j{};j<sz;j++){
             int node=q.front();
-            cout<<node<<" ";
             q.pop();
             for(auto&child:adj[node]){
-                if(!vis[child]){
-                    vis[child]=1;
+                if(color[child]==-1){
+                    color[child]=1-color[node];
                     q.push(child);
+                }
+                else if(color[child]==color[node]){
+                    return false;
                 }
             }
         }
-
     }
+    return true;
 }
-
 
 int Main(){
     int n,m;
@@ -36,12 +37,16 @@ int Main(){
         adj[u].push_back(v);
         adj[v].push_back(u);
     }
-    vector<int> vis(n+1,0);
+    vector<int> color(n+1,-1);
     for(int i{1};i<=n;i++){
-        if(!vis[i]){
-            bfs(i,vis,adj);
+        if(color[i]==-1){
+            if(!bfs(i,color,adj)){
+                cout<<"No"<<endl;
+                return 0;
+            }
         }
     }
+    cout<<"Yes"<<endl;
 
     return 0;
 }
