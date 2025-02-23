@@ -2,11 +2,38 @@
 using namespace std;
 constexpr chrono::seconds TimeLimit = 3s;
 
-// TODO: Code Here
-int Main(){
+// Code Here:
 
+class MinStack {
+public:
+    vector< pair<int,int> > s;
+
+    MinStack() { }
     
+    void push(int val) {
+        if(s.empty())
+            s.push_back({val,val});
+        else
+            s.push_back({val,min(s.back().second,val)});    
+    }
+    
+    void pop() { s.pop_back(); }
+    
+    int top() { return s.back().first; }
+    
+    int getMin() { return s.back().second; }
+};
 
+int Main() {
+    MinStack minStack;
+    minStack.push(5);
+    minStack.push(3);
+    minStack.push(7);
+    cout << "Top: " << minStack.top() << endl; // Output: 7
+    cout << "Min: " << minStack.getMin() << endl; // Output: 3
+    minStack.pop();
+    cout << "Top: " << minStack.top() << endl; // Output: 3
+    cout << "Min: " << minStack.getMin() << endl; // Output: 3
     return 0;
 }
 
