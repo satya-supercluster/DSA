@@ -1,8 +1,21 @@
+// You are given two strings s1 and s2.Your task is to find the length of the longest common substring among the given strings.
+
 #include <bits/stdc++.h>
 using namespace std;
 
 // Code Here:
+
+string longestCommon(string&a,string&b){
+    
+}
+
+
+
 void Main(){
+    string a,b;
+    cin>>a>>b;
+    string s=longestCommon(a,b);
+    cout<<s<<endl;
 }
 
 // Ignore It

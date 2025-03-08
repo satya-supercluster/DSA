@@ -2,39 +2,10 @@
 using namespace std;
 constexpr chrono::seconds TimeLimit = 3s;
 
-// TODO: Code Here
-
-int binary_search(vector<int>&v,int n,int val){
-    int start=0,end=n-1,mid,ans{-1};
-    while(start<=end){
-        mid=start+(end-start)/2;
-        if(v[mid]==val)
-        {
-            if (ans == -1) ans = mid;
-            else ans = max(ans, mid);
-            start=mid+1;
-        }
-        else if(v[mid]<val) start=mid+1;
-        else end=mid-1;
-    }
-    return ans;
-}
-
-
+// Code Here:
 int Main(){
 
-    int n;
-    cin>>n;
-    vector<int> v(n);
-    for(auto&i:v) cin>>i;
-    int val;
-    cin>>val;
-    int ind = binary_search(v, n, val) ;
-    if (ind!=-1)
-    {
-        cout<<"Found at index: "<<ind<<endl;
-    }
-    else cout<<"Not Found"<<endl;
+    
 
     return 0;
 }

@@ -3,6 +3,7 @@ using namespace std;
 
 // Code Here:
 void Main(){
+    
 }
 
 // Ignore It

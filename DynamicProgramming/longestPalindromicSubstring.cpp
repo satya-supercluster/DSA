@@ -1,55 +1,57 @@
-// Time Complexity:- Average case O(nlog(n)), Worst Case O(N2)
-// Space Complexity:- Average case O(log(n)), Worst Case O(N)
-
-
-// 1. Pick a Pivot && place it in its correct place in the sorted array. 
-//      (smaller in left, greater in right)
-// 2. to place the pivot follow ->
-//     a. i=low,j=hight
-//     b.  while i<j
-//              while (arr[i] <= arr[pivot] and i<=high) i++
-//              while (arr[i] > arr[pivot] and j>=low) j--
-//              if(i<j)
-//                   swap arr[i] and arr[j]
-//     c. swap arr[pivot] and arr[j]
-//     d. return j;
-
+// Given a string s, your task is to find the longest palindromic substring within s.
 
 #include<bits/stdc++.h>
+#include<satya/seebug.h>
 using namespace std;
 constexpr chrono::seconds TimeLimit = 3s;
 
 // Code Here:
 
-int sort(vector<int> &v,int low,int high){
-    int pivot=low;
-    int i=low,j=high;
-    while(i<j){
-        while(i<=high and v[i]<=v[pivot]) i++;
-        while(j>=low and v[j]>v[pivot]) j--;
-        if(i<j) swap(v[i],v[j]);
+string longestPalindrome(string &s)
+{
+    int n = s.length();
+    vector<vector<int>> dp(n, vector<int>(n, 0));
+    for (int i{}; i < n; i++)
+    {
+        dp[i][i] = 1;
     }
-    if(j>=low) swap(v[pivot],v[j]);
-    return j;
-}
-
-void quickSort(vector<int> &v,int low,int high){
-    if(low<high){
-        int pivot = sort(v,low,high);
-        quickSort(v,low,pivot-1);
-        quickSort(v,pivot+1,high);
+    int ans{};
+    pair<int, int> pi;
+    for (int j{}; j < n; j++)
+    {
+        for (int i{j-1}; i >= 0; i--)
+        {
+            if (s[i] == s[j] and (dp[i + 1][j - 1] or j-i==1))
+            {
+                dp[i][j] = dp[i + 1][j - 1] + 2;
+                if (ans < dp[i][j])
+                {
+                    ans = dp[i][j];
+                    pi = {i, j};
+                }
+            }
+        }
     }
+    debug(dp);
+    string str;
+    if (ans)
+    {
+        for (int i{pi.first}; i <= pi.second; i++)
+        {
+            str.push_back(s[i]);
+        }
+    }
+    else
+        str.push_back(s[0]);
+    return str;
 }
-
 
 int Main(){
-    int n;
-    cin>>n;
-    vector<int> v(n);
-    for(auto&i:v) cin>>i;
-    quickSort(v,0,n-1);
-    for(auto&i:v) cout<<i<<" ";
-    cout<<endl;
+
+    string s;
+    cin>>s;
+    cout<<longestPalindrome(s)<<endl;
+
     return 0;
 }
 
