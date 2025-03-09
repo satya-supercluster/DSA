@@ -9,7 +9,7 @@ void mergeWithoutExtraSpace(vector<int> &v, int low, int mid, int high)
     int n=mid-low+1,m=high-mid;
     int gap=(n+m+1)/2; // ceil-mid
     while(1){
-        for(int i{low+gap};i<high;i++){
+        for(int i{low+gap};i<=high;i++){
             if(v[i-gap]>v[i]) swap(v[i],v[i-gap]);
         }
         if(gap==1) break;
@@ -54,7 +54,7 @@ void mergeSort(vector<int>&v,int low,int high){
         int mid=low+(high-low)/2;
         mergeSort(v,low,mid);
         mergeSort(v,mid+1,high);
-        mergeWithoutExtraSpaceUsingSort(v,low,mid,high);
+        mergeWithoutExtraSpace(v,low,mid,high);
     }
 }
 
