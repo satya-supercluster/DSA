@@ -1,0 +1,44 @@
+/*
+Problem 0006: Copy List with Random Pointer
+
+Description:
+Create deep copy of linked list with random pointers.
+
+Difficulty: Medium
+Topics: Problems
+
+Example:
+Input: 
+Output: 
+
+Constraints:
+- 
+
+Approach:
+1. 
+2. 
+3. 
+
+Time Complexity: O()
+Space Complexity: O()
+*/
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    // Function to solve copy_list_with_random_pointer
+    void solve() {
+        // Implementation here
+        
+    }
+};
+
+int main() {
+    Solution sol;
+    
+    // Test cases
+    
+    return 0;
+}
